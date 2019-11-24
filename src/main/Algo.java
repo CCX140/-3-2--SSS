@@ -37,6 +37,7 @@ public class Algo {
         if( var1 < n && var1 > 0 && var2 < n && var2 > 0 ){
             if( coul1 >= 0 && coul1 < 3 && coul2 >= 0 && coul2 < 3){
                 contrainte[var1-1][var2-1][coul1][coul2] = true;
+                nbBinaire++;
             }
         }
     }
@@ -49,6 +50,7 @@ public class Algo {
     public void addUnaire(int var, int coul){
         if(var < n && var > 0 && coul >= 0 && coul < 3){
             unaire[var][coul] = true;
+            nbUnaire++;
         }
     }
 
@@ -63,6 +65,7 @@ public class Algo {
         if( var1 < n && var1 > 0 && var2 < n && var2 > 0 ){
             if( coul1 >= 0 && coul1 < 3 && coul2 >= 0 && coul2 < 3){
                 contrainte[var1-1][var2-1][coul1][coul2] = false;
+                nbBinaire--;
             }
         }
     }
@@ -75,6 +78,7 @@ public class Algo {
     public void removeUnaire(int var, int coul){
         if(var < n && var > 0 && coul >= 0 && coul < 3){
             unaire[var][coul] = false;
+            nbUnaire--;
         }
     }
 
