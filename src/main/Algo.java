@@ -38,70 +38,24 @@ public class Algo {
         for(int i = 0;i < n;i++){
             for(int j = 0;j < g.getSize();j++) {
                 if(adjencyList[j][i]){
-                    addBinaire(j,i,R, R);
-                    addBinaire(j,i,B, B);
-                    addBinaire(j,i,G, G);
+                    if( !contrainte[i][j][R][R]){
+                        contrainte[i][j][R][R] = true;
+                        nbBinaire++;
+                    }
+                    if( !contrainte[i][j][G][G]){
+                        contrainte[i][j][G][G] = true;
+                        nbBinaire++;
+                    }
+                    if( !contrainte[i][j][B][B]){
+                        contrainte[i][j][B][B] = true;
+                        nbBinaire++;
+                    }
+
                 }
             }
         }
     }
 
-    /***
-     *
-     * @param var1
-     * @param var2
-     * @param coul1
-     * @param coul2
-     */
-    public void addBinaire(int var1, int var2, int coul1, int coul2){
-        if( var1 < n && var1 >= 0 && var2 < n && var2 >= 0 ){
-            if( coul1 >= 0 && coul1 < 3 && coul2 >= 0 && coul2 < 3){
-                contrainte[var1][var2][coul1][coul2] = true;
-                nbBinaire++;
-            }
-        }
-    }
-
-    /***
-     *
-     * @param var
-     * @param coul
-     */
-    public void addUnaire(int var, int coul){
-        if(var < n && var > 0 && coul >= 0 && coul < 3){
-            unaire[var][coul] = true;
-            nbUnaire++;
-        }
-    }
-
-    /***
-     *
-     * @param var1
-     * @param var2
-     * @param coul1
-     * @param coul2
-     */
-    public void removeBinaire(int var1, int var2, int coul1, int coul2){
-        if( var1 < n && var1 >= 0 && var2 < n && var2 >= 0 ){
-            if( coul1 >= 0 && coul1 < 3 && coul2 >= 0 && coul2 < 3){
-                contrainte[var1][var2][coul1][coul2] = false;
-
-                nbBinaire--;
-            }
-        }
-    }
-
-    /***
-     *
-     * @param var
-     * @param coul
-     */
-    public void removeUnaire(int var, int coul){
-        if(var < n && var >= 0 && coul >= 0 && coul < 3){
-            unaire[var][coul] = false;
-            nbUnaire--;
-        }
-    }
 
     /***
      *

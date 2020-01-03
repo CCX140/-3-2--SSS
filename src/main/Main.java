@@ -21,5 +21,8 @@ public class Main {
         Graph g12= new Graph(200,"/main/graphs/graph200");
         Graph g13= new Graph(200,"/main/graphs/graph200_2");
 
+        Algo algo = new Algo(test);
+        System.out.println(algo.run());
+
     }
 }
