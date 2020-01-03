@@ -38,8 +38,6 @@ public class Graph {
             System.out.println(e.toString());
         }
 
-        printGraph();
-
     }
 
     private void printGraph(){

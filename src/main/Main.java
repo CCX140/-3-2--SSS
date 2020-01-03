@@ -22,7 +22,10 @@ public class Main {
         Graph g13= new Graph(200,"/main/graphs/graph200_2");
 
         Algo algo = new Algo(test);
-        System.out.println(algo.run());
+        System.out.println("Algo de test : " + algo.run());
+
+        algo = new Algo(g1);
+        System.out.println("Algo de 30 sommets : " + algo.run());
 
     }
 }

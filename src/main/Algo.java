@@ -50,6 +50,7 @@ public class Algo {
                         contrainte[i][j][B][B] = true;
                         nbBinaire++;
                     }
+                    System.out.println("add " + i + j);
 
                 }
             }
@@ -67,6 +68,8 @@ public class Algo {
         ArrayList<Couple> listCouple2 = new ArrayList<>();
 
         while(go){
+            System.out.println("Nb contraintes unaires : " + nbUnaire);
+            System.out.println("Nb contraintes binaires : " + nbBinaire);
             if (nbUnaire > 0) { // si il y a des contraintes unaire, on applique les cas 1,2 et 3
                 for (int i = 0; i < n; i++) { //compte le nombre de contraintes unaires associées à la variable i
                     int cpt = 0;
@@ -194,7 +197,7 @@ public class Algo {
                         }
 
                         int nbcouple = min(listCouple1.size(),listCouple2.size());
-                        System.out.println("taille liste 1 : "+listCouple1.size()+ " taille liste 2 : "+listCouple2.size());
+                        //System.out.println("taille liste 1 : "+listCouple1.size()+ " taille liste 2 : "+listCouple2.size());
                         for(int j = 0;j<nbcouple;j++){
                             // on cree les couples p (on ajoute une contraite binaire [(y,B)(z,C)])
                             if(listCouple1.get(j).var != listCouple2.get(j).var && listCouple1.get(j).coul != listCouple2.get(j).coul) {
@@ -211,20 +214,20 @@ public class Algo {
                             }
 
                             // puis on supprime les contraintes binaires contenant (x,coul1) ou (x,coul2)
-                            if(contrainte[i][listCouple1.get(j).var][coul1][listCouple1.get(j).var]){
-                                contrainte[i][listCouple1.get(j).var][coul1][listCouple1.get(j).var] = false;
+                            if(contrainte[i][listCouple1.get(j).var][coul1][listCouple1.get(j).coul]){
+                                contrainte[i][listCouple1.get(j).var][coul1][listCouple1.get(j).coul] = false;
                                 nbBinaire --;
                             }
-                            if(contrainte[listCouple1.get(j).var][i][listCouple1.get(j).var][coul1]){
-                                contrainte[listCouple1.get(j).var][i][listCouple1.get(j).var][coul1] = false;
+                            if(contrainte[listCouple1.get(j).var][i][listCouple1.get(j).coul][coul1]){
+                                contrainte[listCouple1.get(j).var][i][listCouple1.get(j).coul][coul1] = false;
                                 nbBinaire --;
                             }
-                            if(contrainte[i][listCouple2.get(j).var][coul2][listCouple2.get(j).var]){
-                                contrainte[i][listCouple2.get(j).var][coul2][listCouple2.get(j).var] = false;
+                            if(contrainte[i][listCouple2.get(j).var][coul2][listCouple2.get(j).coul]){
+                                contrainte[i][listCouple2.get(j).var][coul2][listCouple2.get(j).coul] = false;
                                 nbBinaire --;
                             }
-                            if(contrainte[listCouple2.get(j).var][i][listCouple2.get(j).var][coul2]){
-                                contrainte[listCouple2.get(j).var][i][listCouple2.get(j).var][coul2] = false;
+                            if(contrainte[listCouple2.get(j).var][i][listCouple2.get(j).coul][coul2]){
+                                contrainte[listCouple2.get(j).var][i][listCouple2.get(j).coul][coul2] = false;
                                 nbBinaire --;
                             }
                         }
@@ -245,30 +248,36 @@ public class Algo {
                     int coul1 = -1;
                     int coul2 = -1;
 
-                    boolean find = true;
-                    int i = 0;
-                    int j = 0;
-                    int k = 0;
-                    int l = 0;
+                    boolean found = false;
                     //trouve la premiere contrainte binaire [(x, A),(y, B)]
-                    while(i < n && find){
-                        while(j < n && find){
-                            while (k < 3 && find){
-                                while(l < 3 && find){
+                    for(int i = 0;i < n;i++){
+                        for(int j = 0;j < n;j++){
+                            for(int k = 0;k < 3;k++){
+                                for(int l = 0;l < 3;l++){
+                                    //System.out.println("cherche");
                                     if(contrainte[i][j][k][l]){
+                                        //System.out.println("trouvé");
                                         var1 = i;
                                         var2 = j;
                                         coul1 = k;
                                         coul2 = l;
-                                        find = false;
+                                        found = true;
                                     }
-                                    l++;
+                                    if(found){
+                                        break;
+                                    }
                                 }
-                                k++;
+                                if(found){
+                                    break;
+                                }
                             }
-                            j++;
+                            if(found){
+                                break;
+                            }
                         }
-                        i++;
+                        if(found){
+                            break;
+                        }
                     }
 
                     // ajoute des contraintes unaires selon le resultat du random
@@ -305,6 +314,8 @@ public class Algo {
                         coul5 = B;
                         coul6 = G;
                     }
+
+                    //System.out.println("" + var1 + ""+ var2 + ""+ coul1 + ""+ coul2);
 
                     // si la contraite est [(x, R),(y, B)]
                     if(rand==0){ // ajoute [(x, R)] et [(y, R)]
