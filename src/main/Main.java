@@ -7,6 +7,7 @@ public class Main {
         Algo algo = new Algo(n);*/
 
         Graph test = new Graph(30,"/main/graphs/test30");
+        Graph test2 = new Graph(5,"/main/graphs/graph5");
         Graph g1 = new Graph(30,"/main/graphs/graph30");
         Graph g2 = new Graph(50,"/main/graphs/graph50");
         Graph g3 = new Graph(55,"/main/graphs/graph55");
@@ -21,11 +22,16 @@ public class Main {
         Graph g12= new Graph(200,"/main/graphs/graph200");
         Graph g13= new Graph(200,"/main/graphs/graph200_2");
 
-        Algo algo = new Algo(test);
-        System.out.println("Algo de test : " + algo.run());
+        //Algo algo = new Algo(test);
+        //System.out.println("Algo de test : " + algo.run());
 
-        algo = new Algo(g1);
-        System.out.println("Algo de 30 sommets : " + algo.run());
+        //Algo algo1 = new Algo(test2);
+        //System.out.println("Algo de test : " + algo1.run());
+
+        Algo algo2 = new Algo(g1);
+        System.out.println("Algo de 30 sommets : " + algo2.run());
+
+
 
     }
 }

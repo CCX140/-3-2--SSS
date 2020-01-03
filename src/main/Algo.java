@@ -64,12 +64,12 @@ public class Algo {
      */
     public boolean run(){
         boolean go = true;
-        ArrayList<Couple> listCouple1 = new ArrayList<>();
-        ArrayList<Couple> listCouple2 = new ArrayList<>();
+        ArrayList<Couple> listCouple1;
+        ArrayList<Couple> listCouple2;
 
         while(go){
             System.out.println("Nb contraintes unaires : " + nbUnaire);
-            System.out.println("Nb contraintes binaires : " + nbBinaire);
+            System.out.println("Nb contraintes binaires : " + nbBinaire + "\n");
             if (nbUnaire > 0) { // si il y a des contraintes unaire, on applique les cas 1,2 et 3
                 for (int i = 0; i < n; i++) { //compte le nombre de contraintes unaires associées à la variable i
                     int cpt = 0;
@@ -81,6 +81,7 @@ public class Algo {
                         cpt++;
 
                     /* CAS 1 */
+                    System.out.println("Cpt = " + cpt);
                     if (cpt == 3)
                         return false; // Si x apparait dans 3 contraintes unaires differentes le graphe n'est pas coloriable
 
@@ -146,6 +147,8 @@ public class Algo {
                         nbUnaire--;
                         unaire[i][coul2] = false;
                         nbUnaire--;
+
+                        break;
                     }
 
                     /* CAS 3 */
@@ -166,6 +169,10 @@ public class Algo {
                                 }
                             }
                         }
+
+                        //on supprime la contrainte (x,coul3)
+                        unaire[i][coul3] = false;
+                        nbUnaire--;
 
                         for(int j = 0;j<n;j++) { //on supprime les contraintes binaires contenant (x,coul3)
                             for (int k = 0; k < 3; k++) {
@@ -231,12 +238,13 @@ public class Algo {
                                 nbBinaire --;
                             }
                         }
-
+                        break;
                     }
                 }
             }
             else { // Si il n'y a pas de contraintes unaires
                 if(nbBinaire > 0 ){ // si il y a des contraintes binaire
+
                     /* CAS 4 */
 
                     //generation aléatoire avec une propa de 1/4
@@ -249,7 +257,7 @@ public class Algo {
                     int coul2 = -1;
 
                     boolean found = false;
-                    //trouve la premiere contrainte binaire [(x, A),(y, B)]
+                    //trouve la premiere contrainte binaire [(x, A),(y, B)] et la place dans les variables ci dessus
                     for(int i = 0;i < n;i++){
                         for(int j = 0;j < n;j++){
                             for(int k = 0;k < 3;k++){
