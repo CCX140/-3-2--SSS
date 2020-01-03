@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 import static main.Constants.R;
 import static main.Constants.G;
 import static main.Constants.B;
@@ -103,10 +105,12 @@ public class Algo {
 
     /***
      *
-     * @return
+     * @return true si le graphe est 3 coloriable
      */
     public boolean run(){
         boolean go = true;
+        ArrayList<Couple> listCouple1 = new ArrayList<>();
+        ArrayList<Couple> listCouple2 = new ArrayList<>();
 
         while(go){
             if (nbUnaire > 0) { // si il y a des contraintes unaire, on applique les cas 1,2 et 3
@@ -132,7 +136,8 @@ public class Algo {
                         for (int j = 0; j < 3; j++) { //recupere les couleurs des deux contraintes dans les variables coul1 ,2 et 3
                             if (!unaire[i][j]) {
                                 coul3 = j;
-                            } else {
+                            }
+                            else {
                                 if (coul1 == -1) {
                                     coul1 = j;
                                 } else {
@@ -154,8 +159,10 @@ public class Algo {
                                 if(contrainte[i][j][coul3][k]){ //si la contrainte binaire contient (x,coul3) on la supprime puis on ajoute une contrainte unaire (j,k)
                                     contrainte[i][j][coul3][k] = false;
                                     nbBinaire--;
-                                    unaire[j][k] = true;
-                                    nbUnaire++;
+                                    if(!unaire[j][k]) {
+                                        unaire[j][k] = true;
+                                        nbUnaire++;
+                                    }
                                 }
 
                                 if(contrainte[j][i][k][coul1]){ //si la contrainte binaire contient (x,coul1) on la supprime
@@ -169,8 +176,10 @@ public class Algo {
                                 if(contrainte[j][i][k][coul3]){ //si la contrainte binaire contient (x,coul3) on la supprime puis on ajoute une contrainte unaire (j,k)
                                     contrainte[j][i][k][coul3] = false;
                                     nbBinaire--;
-                                    unaire[j][k] = true;
-                                    nbUnaire++;
+                                    if(!unaire[j][k]) {
+                                        unaire[j][k] = true;
+                                        nbUnaire++;
+                                    }
                                 }
                             }
                         }
@@ -183,7 +192,89 @@ public class Algo {
                     }
 
                     /* CAS 3 */
-                    if (cpt == 3) { //Si x apparait dans exactement 1 contrainte unaire
+                    if (cpt == 1) { //Si x apparait dans exactement 1 contrainte unaire
+                        int coul1 = -1; //premiere couleur qui n'est pas dans la contrainte
+                        int coul2 = -1; //deuxieme couleur qui n'est pas dans la contrainte
+                        int coul3 = -1; //couleur dans la contrainte
+
+                        for (int j = 0; j < 3; j++) { //recupere la couleur de la contrainte dans la variable coul3 et les autres dans coul1 et 2
+                            if (unaire[i][j]) {
+                                coul3 = j;
+                            }
+                            else {
+                                if (coul1 == -1) {
+                                    coul1 = j;
+                                } else {
+                                    coul2 = j;
+                                }
+                            }
+                        }
+
+                        for(int j = 0;j<n;j++) { //on supprime les contraintes binaires contenant (x,coul3)
+                            for (int k = 0; k < 3; k++) {
+                                if(contrainte[i][j][coul3][k]){
+                                    contrainte[i][j][coul3][k] = false;
+                                    nbBinaire--;
+                                }
+                                if(contrainte[j][i][k][coul3]){
+                                    contrainte[j][i][k][coul3] = false;
+                                    nbBinaire--;
+                                }
+                            }
+                        }
+
+                        // stockage des variables et couleurs des couples a creer
+
+                        listCouple1 = new ArrayList<>(); //reinitialisation des liste pour la creation des couples
+                        listCouple2 = new ArrayList<>();
+
+                        for(int j = 0;j<n;j++) { //on recupere les contraintes contenant (x,coul1) ou (x,coul2) pour creer les couples
+                            for (int k = 0; k < 3; k++) {
+                                if(contrainte[i][j][coul1][k] || contrainte[j][i][k][coul1]){
+                                    listCouple1.add(new Couple(j,k));
+                                }
+                                if(contrainte[i][j][coul2][k] || contrainte[j][i][k][coul2]){
+                                    listCouple2.add(new Couple(j,k));
+                                }
+                            }
+                        }
+
+                        int nbcouple = min(listCouple1.size(),listCouple2.size());
+                        System.out.println("taille liste 1 : "+listCouple1.size()+ " taille liste 2 : "+listCouple2.size());
+                        for(int j = 0;j<nbcouple;j++){
+                            // on cree les couples p (on ajoute une contraite binaire [(y,B)(z,C)])
+                            if(listCouple1.get(j).var != listCouple2.get(j).var && listCouple1.get(j).coul != listCouple2.get(j).coul) {
+                                if (!contrainte[listCouple1.get(j).var][listCouple2.get(j).var][listCouple1.get(j).coul][listCouple2.get(j).coul]) {
+                                    contrainte[listCouple1.get(j).var][listCouple2.get(j).var][listCouple1.get(j).coul][listCouple2.get(j).coul] = true;
+                                    nbBinaire++;
+                                }
+                            }
+                            else{ // si les couples sont identiques, on ajoute une contrainte unaire aulieu d'une binaire
+                                if(!unaire[listCouple1.get(j).var][listCouple1.get(j).coul]){
+                                    unaire[listCouple1.get(j).var][listCouple1.get(j).coul] = true;
+                                    nbUnaire++;
+                                }
+                            }
+
+                            // puis on supprime les contraintes binaires contenant (x,coul1) ou (x,coul2)
+                            if(contrainte[i][listCouple1.get(j).var][coul1][listCouple1.get(j).var]){
+                                contrainte[i][listCouple1.get(j).var][coul1][listCouple1.get(j).var] = false;
+                                nbBinaire --;
+                            }
+                            if(contrainte[listCouple1.get(j).var][i][listCouple1.get(j).var][coul1]){
+                                contrainte[listCouple1.get(j).var][i][listCouple1.get(j).var][coul1] = false;
+                                nbBinaire --;
+                            }
+                            if(contrainte[i][listCouple2.get(j).var][coul2][listCouple2.get(j).var]){
+                                contrainte[i][listCouple2.get(j).var][coul2][listCouple2.get(j).var] = false;
+                                nbBinaire --;
+                            }
+                            if(contrainte[listCouple2.get(j).var][i][listCouple2.get(j).var][coul2]){
+                                contrainte[listCouple2.get(j).var][i][listCouple2.get(j).var][coul2] = false;
+                                nbBinaire --;
+                            }
+                        }
+
 
                     }
                 }
@@ -198,6 +289,13 @@ public class Algo {
             }
         }
         return true;
+    }
+
+    public static int min(int a,int b){
+        if(a <= b){
+            return a;
+        }
+        return  b;
     }
 
 }
