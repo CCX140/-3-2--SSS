@@ -22,16 +22,50 @@ public class Main {
         Graph g12= new Graph(200,"/main/graphs/graph200");
         Graph g13= new Graph(200,"/main/graphs/graph200_2");
 
-        //Algo algo = new Algo(test);
-        //System.out.println("Algo de test : " + algo.run());
+        Algo algo = new Algo(test);
+        System.out.println("Graphe test : " + algo.run());
 
-        //Algo algo1 = new Algo(test2);
-        //System.out.println("Algo de test : " + algo1.run());
+        algo = new Algo(test2);
+        System.out.println("Graphe de test 2 : " + algo.run());
 
-        Algo algo2 = new Algo(g1);
-        System.out.println("Algo de 30 sommets : " + algo2.run());
+        algo = new Algo(g1);
+        System.out.println("Graphe de 30 sommets : " + algo.run());
 
+        algo = new Algo(g2);
+        System.out.println("Graphe de 50 sommets : " + algo.run());
 
+        algo = new Algo(g3);
+        System.out.println("Graphe de 55 sommets : " + algo.run());
+
+        algo = new Algo(g4);
+        System.out.println("Graphe de 60 sommets : " + algo.run());
+
+        algo = new Algo(g5);
+        System.out.println("Graphe de 65 sommets : " + algo.run());
+
+        algo = new Algo(g6);
+        System.out.println("Graphe de 70 sommets : " + algo.run());
+
+        algo = new Algo(g7);
+        System.out.println("Graphe de 75 sommets : " + algo.run());
+
+        algo = new Algo(g8);
+        System.out.println("Graphe de 80 sommets : " + algo.run());
+
+        algo = new Algo(g9);
+        System.out.println("Graphe de 85 sommets : " + algo.run());
+
+        algo = new Algo(g10);
+        System.out.println("Graphe de 90 sommets : " + algo.run());
+
+        algo = new Algo(g11);
+        System.out.println("Graphe de 100 sommets : " + algo.run());
+
+        algo = new Algo(g12);
+        System.out.println("Graphe de 200 sommets : " + algo.run());
+
+        algo = new Algo(g13);
+        System.out.println("Graphe de 200 sommets : " + algo.run());
 
     }
 }

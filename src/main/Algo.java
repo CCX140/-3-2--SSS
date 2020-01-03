@@ -50,7 +50,7 @@ public class Algo {
                         contrainte[i][j][B][B] = true;
                         nbBinaire++;
                     }
-                    System.out.println("add " + i + j);
+
 
                 }
             }
@@ -68,8 +68,7 @@ public class Algo {
         ArrayList<Couple> listCouple2;
 
         while(go){
-            System.out.println("Nb contraintes unaires : " + nbUnaire);
-            System.out.println("Nb contraintes binaires : " + nbBinaire + "\n");
+
             if (nbUnaire > 0) { // si il y a des contraintes unaire, on applique les cas 1,2 et 3
                 for (int i = 0; i < n; i++) { //compte le nombre de contraintes unaires associées à la variable i
                     int cpt = 0;
@@ -81,7 +80,7 @@ public class Algo {
                         cpt++;
 
                     /* CAS 1 */
-                    System.out.println("Cpt = " + cpt);
+
                     if (cpt == 3)
                         return false; // Si x apparait dans 3 contraintes unaires differentes le graphe n'est pas coloriable
 
@@ -204,7 +203,7 @@ public class Algo {
                         }
 
                         int nbcouple = min(listCouple1.size(),listCouple2.size());
-                        //System.out.println("taille liste 1 : "+listCouple1.size()+ " taille liste 2 : "+listCouple2.size());
+
                         for(int j = 0;j<nbcouple;j++){
                             // on cree les couples p (on ajoute une contraite binaire [(y,B)(z,C)])
                             if(listCouple1.get(j).var != listCouple2.get(j).var && listCouple1.get(j).coul != listCouple2.get(j).coul) {
@@ -262,9 +261,9 @@ public class Algo {
                         for(int j = 0;j < n;j++){
                             for(int k = 0;k < 3;k++){
                                 for(int l = 0;l < 3;l++){
-                                    //System.out.println("cherche");
+
                                     if(contrainte[i][j][k][l]){
-                                        //System.out.println("trouvé");
+
                                         var1 = i;
                                         var2 = j;
                                         coul1 = k;
@@ -323,7 +322,7 @@ public class Algo {
                         coul6 = G;
                     }
 
-                    //System.out.println("" + var1 + ""+ var2 + ""+ coul1 + ""+ coul2);
+
 
                     // si la contraite est [(x, R),(y, B)]
                     if(rand==0){ // ajoute [(x, R)] et [(y, R)]
