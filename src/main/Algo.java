@@ -275,13 +275,124 @@ public class Algo {
                             }
                         }
 
-
                     }
                 }
             }
             else { // Si il n'y a pas de contraintes unaires
                 if(nbBinaire > 0 ){ // si il y a des contraintes binaire
+                    /* CAS 4 */
 
+                    //generation aléatoire avec une propa de 1/4
+                    int rand = (int)(Math.random() * 4);
+
+                    //trouve la premiere contrainte binaire
+                    int var1 = -1;
+                    int var2 = -1;
+                    int coul1 = -1;
+                    int coul2 = -1;
+
+                    boolean find = true;
+                    int i = 0;
+                    int j = 0;
+                    int k = 0;
+                    int l = 0;
+                    //trouve la premiere contrainte binaire [(x, A),(y, B)]
+                    while(i < n && find){
+                        while(j < n && find){
+                            while (k < 3 && find){
+                                while(l < 3 && find){
+                                    if(contrainte[i][j][k][l]){
+                                        var1 = i;
+                                        var2 = j;
+                                        coul1 = k;
+                                        coul2 = l;
+                                        find = false;
+                                    }
+                                    l++;
+                                }
+                                k++;
+                            }
+                            j++;
+                        }
+                        i++;
+                    }
+
+                    // ajoute des contraintes unaires selon le resultat du random
+
+                    int coul3 = -1;
+                    int coul4 = -1;
+                    int coul5 = -1;
+                    int coul6 = -1;
+
+                    //on determine les couleurs de x et y qui ne sont pas dans la contrainte binaire pour ensuite creer les contraintes unaires
+                    //on range ces couleurs dans coul3 et coul4 pour x et dans coul5 et coul6 pour y
+                    if(coul1 == B){
+                        coul3 = G;
+                        coul4 = R;
+                    }
+                    else if(coul1 == G){
+                        coul3 = B;
+                        coul4 = R;
+                    }
+                    else if(coul1 == R){
+                        coul3 = B;
+                        coul4 = G;
+                    }
+
+                    if(coul2 == B){
+                        coul5 = G;
+                        coul6 = R;
+                    }
+                    else if(coul2 == G){
+                        coul5 = B;
+                        coul6 = R;
+                    }
+                    else if(coul2 == R){
+                        coul5 = B;
+                        coul6 = G;
+                    }
+
+                    // si la contraite est [(x, R),(y, B)]
+                    if(rand==0){ // ajoute [(x, R)] et [(y, R)]
+                        if(!unaire[var1][coul1]){
+                            unaire[var1][coul1] = true;
+                            nbUnaire++;
+                        }
+                        if(!unaire[var2][coul5]){
+                            unaire[var2][coul5] = true;
+                            nbUnaire++;
+                        }
+                    }
+                    else if(rand==1){ //ajoute [(x, R)] et [(y, V )]
+                        if(!unaire[var1][coul1]){
+                            unaire[var1][coul1] = true;
+                            nbUnaire++;
+                        }
+                        if(!unaire[var2][coul6]){
+                            unaire[var2][coul6] = true;
+                            nbUnaire++;
+                        }
+                    }
+                    else if(rand==2){ //ajoute [(x, B)] et [(y, B)]
+                        if(!unaire[var2][coul2]){
+                            unaire[var2][coul2] = true;
+                            nbUnaire++;
+                        }
+                        if(!unaire[var1][coul3]){
+                            unaire[var1][coul3] = true;
+                            nbUnaire++;
+                        }
+                    }
+                    else if(rand==3){ // ajoute [(x, V )] et [(y, B)]
+                        if(!unaire[var2][coul2]){
+                            unaire[var2][coul2] = true;
+                            nbUnaire++;
+                        }
+                        if(!unaire[var1][coul4]){
+                            unaire[var1][coul4] = true;
+                            nbUnaire++;
+                        }
+                    }
                 }
                 else { // Si il n'y a plus de contraintes on sort de la boucle et on retourne vrai
                     go = false;
