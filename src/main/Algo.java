@@ -110,7 +110,7 @@ public class Algo {
 
         while(go){
             if (nbUnaire > 0) { // si il y a des contraintes unaire, on applique les cas 1,2 et 3
-                for (int i = 0; i < n; i++) {
+                for (int i = 0; i < n; i++) { //compte le nombre de contraintes unaires associées à la variable i
                     int cpt = 0;
                     if (unaire[i][R])
                         cpt++;
@@ -129,7 +129,7 @@ public class Algo {
                         int coul2 = -1; //deuxieme couleur
                         int coul3 = -1; //couleur dans aucune des deux contraintes
 
-                        for (int j = 0; j < 3; j++) { //recupere les couleurs des deux contraintes dans des variables
+                        for (int j = 0; j < 3; j++) { //recupere les couleurs des deux contraintes dans les variables coul1 ,2 et 3
                             if (!unaire[i][j]) {
                                 coul3 = j;
                             } else {
@@ -140,15 +140,61 @@ public class Algo {
                                 }
                             }
                         }
-                        for(int k = 0;k<n;k++){ //on supprime les contraintes binaires contenant (x,coul1) ou (x,coul2)
-                            contrainte[i][k][]
+
+                        for(int j = 0;j<n;j++){ //on supprime les contraintes binaires contenant (x,coul1) ou (x,coul2)
+                            for(int k = 0;k < 3;k++){
+                                if(contrainte[i][j][coul1][k]){ //si la contrainte binaire contient (x,coul1) on la supprime
+                                    contrainte[i][j][coul1][k] = false;
+                                    nbBinaire--;
+                                }
+                                if(contrainte[i][j][coul2][k]){ //si la contrainte binaire contient (x,coul2) on la supprime
+                                    contrainte[i][j][coul2][k] = false;
+                                    nbBinaire--;
+                                }
+                                if(contrainte[i][j][coul3][k]){ //si la contrainte binaire contient (x,coul3) on la supprime puis on ajoute une contrainte unaire (j,k)
+                                    contrainte[i][j][coul3][k] = false;
+                                    nbBinaire--;
+                                    unaire[j][k] = true;
+                                    nbUnaire++;
+                                }
+
+                                if(contrainte[j][i][k][coul1]){ //si la contrainte binaire contient (x,coul1) on la supprime
+                                    contrainte[j][i][k][coul1] = false;
+                                    nbBinaire--;
+                                }
+                                if(contrainte[j][i][k][coul2]){ //si la contrainte binaire contient (x,coul2) on la supprime
+                                    contrainte[j][i][k][coul2] = false;
+                                    nbBinaire--;
+                                }
+                                if(contrainte[j][i][k][coul3]){ //si la contrainte binaire contient (x,coul3) on la supprime puis on ajoute une contrainte unaire (j,k)
+                                    contrainte[j][i][k][coul3] = false;
+                                    nbBinaire--;
+                                    unaire[j][k] = true;
+                                    nbUnaire++;
+                                }
+                            }
                         }
+
+                        //on supprime les contraintes unaires
+                        unaire[i][coul1] = false;
+                        nbUnaire--;
+                        unaire[i][coul2] = false;
+                        nbUnaire--;
+                    }
+
+                    /* CAS 3 */
+                    if (cpt == 3) { //Si x apparait dans exactement 1 contrainte unaire
 
                     }
                 }
             }
-            else if(nbBinaire > 0 ){ // si il y a des contraintes
+            else { // Si il n'y a pas de contraintes unaires
+                if(nbBinaire > 0 ){ // si il y a des contraintes binaire
 
+                }
+                else { // Si il n'y a plus de contraintes on sort de la boucle et on retourne vrai
+                    go = false;
+                }
             }
         }
         return true;
