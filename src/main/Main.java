@@ -23,49 +23,46 @@ public class Main {
         Graph g13= new Graph(200,"/main/graphs/graph200_2");
 
         Algo algo = new Algo(test);
-        System.out.println("Graphe test : " + algo.run());
-
-        algo = new Algo(test2);
-        System.out.println("Graphe de test 2 : " + algo.run());
+        System.out.println("Graphe test : " + algo.runNtimes((int) (10*Math.pow(2,30/2))));
 
         algo = new Algo(g1);
-        System.out.println("Graphe de 30 sommets : " + algo.run());
+        System.out.println("Graphe a 30 sommets : " + algo.runNtimes((int) (10*Math.pow(2,30/2))));
 
         algo = new Algo(g2);
-        System.out.println("Graphe de 50 sommets : " + algo.run());
+        System.out.println("Graphe a 50 sommets : " +algo.runNtimes((int) (10*Math.pow(2,50/2))));
 
         algo = new Algo(g3);
-        System.out.println("Graphe de 55 sommets : " + algo.run());
+        System.out.println("Graphe a 55 sommets : " + algo.runNtimes((int) (10*Math.pow(2,55/2))));
 
         algo = new Algo(g4);
-        System.out.println("Graphe de 60 sommets : " + algo.run());
+        System.out.println("Graphe a 60 sommets : " + algo.runNtimes((int) (10*Math.pow(2,60/2))));
 
         algo = new Algo(g5);
-        System.out.println("Graphe de 65 sommets : " + algo.run());
+        System.out.println("Graphe a 65 sommets : " + algo.runNtimes((int) (10*Math.pow(2,65/2))));
 
         algo = new Algo(g6);
-        System.out.println("Graphe de 70 sommets : " + algo.run());
+        System.out.println("Graphe a 70 sommets : " + algo.runNtimes((int) (10*Math.pow(2,70/2))));
 
         algo = new Algo(g7);
-        System.out.println("Graphe de 75 sommets : " + algo.run());
+        System.out.println("Graphe a 75 sommets : " + algo.runNtimes((int) (10*Math.pow(2,75/2))));
 
         algo = new Algo(g8);
-        System.out.println("Graphe de 80 sommets : " + algo.run());
+        System.out.println("Graphe a 80 sommets : " + algo.runNtimes((int) (10*Math.pow(2,80/2))));
 
         algo = new Algo(g9);
-        System.out.println("Graphe de 85 sommets : " + algo.run());
+        System.out.println("Graphe a 85 sommets : " + algo.runNtimes((int) (10*Math.pow(2,85/2))));
 
         algo = new Algo(g10);
-        System.out.println("Graphe de 90 sommets : " + algo.run());
+        System.out.println("Graphe a 90 sommets : " + algo.runNtimes((int) (10*Math.pow(2,90/2))));
 
         algo = new Algo(g11);
-        System.out.println("Graphe de 100 sommets : " + algo.run());
+        System.out.println("Graphe a 100 sommets : " + algo.runNtimes((int) (10*Math.pow(2,100/2))));
 
         algo = new Algo(g12);
-        System.out.println("Graphe de 200 sommets : " + algo.run());
+        System.out.println("Graphe a 200 sommets : " + algo.runNtimes((int) (10*Math.pow(2,200/2))));
 
         algo = new Algo(g13);
-        System.out.println("Graphe de 200 sommets : " + algo.run());
+        System.out.println("Graphe a 200 sommets : " + algo.runNtimes((int) (10*Math.pow(2,200/2))));
 
     }
 }

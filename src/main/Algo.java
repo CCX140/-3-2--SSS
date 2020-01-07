@@ -374,6 +374,20 @@ public class Algo {
         return true;
     }
 
+    public boolean runNtimes(int n){
+        if(n > 10000000){ //n max pour un temps de calcul raisonable
+            n = 10000000;
+        }
+
+        for(int i =0; i< n;i++){
+            if(run()){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static int min(int a,int b){
         if(a <= b){
             return a;
