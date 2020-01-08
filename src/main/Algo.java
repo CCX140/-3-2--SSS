@@ -154,7 +154,7 @@ public class Algo {
                     if (cpt == 1) { //Si x apparait dans exactement 1 contrainte unaire
                         int coul1 = -1; //premiere couleur qui n'est pas dans la contrainte
                         int coul2 = -1; //deuxieme couleur qui n'est pas dans la contrainte
-                        int coul3 = -1; //couleur dans la contrainte
+                        int coul3 = -1; //couleur dans la contrainte unaire
 
                         for (int j = 0; j < 3; j++) { //recupere la couleur de la contrainte dans la variable coul3 et les autres dans coul1 et 2
                             if (unaire[i][j]) {
@@ -278,13 +278,13 @@ public class Algo {
                                     break;
                                 }
                             }
-                            if(found){
+                            /*if(found){
                                 break;
-                            }
+                            }*/
                         }
-                        if(found){
+                        /*if(found){
                             break;
-                        }
+                        }*/
                     }
 
                     // ajoute des contraintes unaires selon le resultat du random
